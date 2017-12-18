@@ -1,6 +1,5 @@
-(function(){
 /* ES6 will be used but do note that normally I'd transpile it to ES5 for greater compatibility  */
-
+(function(){
 const game = {   
    board: document.querySelector('.board'),
    boxes: document.querySelectorAll('.board li'),
