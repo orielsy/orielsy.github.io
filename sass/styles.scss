@@ -1,0 +1,435 @@
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+// PLEASE NOTE I PURSPOSELY AVOIDED USING CSS VENDOR PREFIXES for the sake of brevity
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:400,700');
+
+$brown: #645037;
+$tableColor: #8f7961;
+$burnedWood: rgba(11, 9, 6, 0.8);
+$headingFont: 'Abril Fatface', serif;
+$defaultFont: 'Open Sans', sans-serif;
+
+* {
+   transition: all ease-in-out 200ms;
+}
+
+html {
+   overflow-y: scroll;
+   overflow-x: hidden;
+   background: #fff;
+   font-family: $defaultFont;
+}
+
+body {
+   padding: 1vw;
+   perspective: 154px;
+   font-size: 1.1em;
+   color: $burnedWood;
+   max-width: 708px;
+   margin: 0 auto;
+}
+
+h1,h2,h3,h4 {   
+   font-family: $headingFont;
+}
+
+em {
+   font-weight: bold;
+}
+
+h1 {
+   font-size: 2.8em;
+   margin-bottom: 20px;
+   color: transparent;
+   background-color: $burnedWood;
+   text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.05);
+   -webkit-background-clip: text;
+   -moz-background-clip: text;
+   background-clip: text;
+   outline: none;
+}
+
+h2 {
+   font-size: 1.5em;
+}
+
+h3 {
+   font-size: 1.2em;
+   margin-bottom: 5px;
+}
+
+h4 {
+   margin-bottom: 5px;
+}
+
+i {
+   font-style: italic;
+}
+
+button {
+   font-size: 1em;
+   font-family: $headingFont;
+   padding: 2px;
+   background: transparent;
+   font-weight: bold;
+   cursor: pointer;
+   border: none;
+   color: rgba(255, 255, 255, 0.9);
+}
+
+.table {
+   position: relative;
+   background: url(../img/grain.png) $tableColor;
+   background-position: -80px 0;
+   margin: 0 auto;
+   max-width: 700px;
+   max-height: 700px;
+   height: 65vh;
+   padding-top: 22vh;
+   border: 4px solid $brown;
+   text-align: center;
+   z-index: 100;
+   transform-style: preserve-3d;
+   transform: rotateX(45deg) scale(0.33);
+   animation-fill-mode: forwards;
+   animation-delay: 1000ms;
+   animation-duration: 1500ms;
+   animation-iteration-count: 1;
+   animation-name: walkup;
+   &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      background: $brown;
+      height: 10px;
+      position: absolute;
+      top: 100%;
+      transform: rotateX(-25deg);
+   }
+   .legs {
+      display: block;
+      height: 40vh;
+      width: 4vw;
+      max-width: 40px;
+      position: absolute;
+      transform: rotateX(-25deg);
+      z-index: 0;
+      top: 90%;
+      background: linear-gradient(to right, rgba(100, 80, 55, 1) 0%, rgba(138, 110, 76, 1) 50%, rgba(100, 80, 55, 1) 100%);
+      border-radius: 2vw;
+      transform-origin: 50% 0% 0px;      
+      animation-duration: 2300ms;
+      animation-fill-mode: forwards;
+      &.left {
+         left: 6vw;
+      }
+      &.right {
+         right: 6vw;
+      }
+      &.back {
+         top: 10%;
+      }
+   }
+}
+
+.controls {
+   position: absolute;
+   top: 4px;
+   right: 4px;
+   button {
+      background: transparent;
+      font-size: 1em;
+      color: $burnedWood;
+      text-align: center;
+      &:hover {
+         //text-decoration: underline;
+         i {            
+            &:before{               
+               transform: scale(1);
+               animation: pulse 1s infinite;
+            }
+         }
+      }
+      i {
+         text-decoration: none;
+         margin: 0 auto;
+         color: $tableColor;
+         font-size: 1.5em;
+         border-radius: 100%;
+         background: $burnedWood;
+         width: 45px;
+         height: 45px;
+         display: flex;
+         align-items: center;
+         justify-content: center;         
+      }
+      &.reset{
+         &:hover{
+            i{
+               &:before{
+                  animation: spin 1s infinite linear;
+               }
+            }
+         }
+      }
+      &.speak.active{
+         i{
+            color: #c00;
+            &:before{
+               transform: scale(1);
+               animation: pulse 1s infinite;
+            }
+         }
+      }
+   }
+}
+
+.paper {
+   color: rgba(0, 0, 0, 0.7);
+   text-shadow: none;
+   text-align: center;
+   padding: 2em 1em 2em 2.5em;
+   padding: 2em 1em;
+   max-width: 300px;
+   max-width: 80%;
+   height: 32vh;
+   border: 1px solid #999;
+   margin: 20px auto 20px;
+   background-color: #ffe;
+   background-image: linear-gradient(90deg, transparent 39px, #abced4 39px, #abced4 41px, transparent 41px), linear-gradient(#eee .1em, transparent .1em);
+   background-size: 100% 1.4em;
+   background-position: 0 -.1em;
+   position: relative;
+   &:before,
+   &:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      border: 1px solid #999;
+      background: #ffe;
+      position: absolute;
+   }
+   &:before {
+      top: 2px;
+      left: 2px;
+      z-index: -10;
+   }
+   &:after {
+      top: 5px;
+      left: 5px;
+      z-index: -20;
+      box-shadow: 1px 4px 3px rgba(0, 0, 0, 0.2);
+   }
+   h1 {
+      margin-bottom: 1em;
+   }
+}
+
+.board {
+   margin: 0 auto;
+   margin-bottom: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   z-index: 100;
+   outline: none;
+   li {
+      text-align: center;
+      line-height: 1;
+      text-transform: uppercase;
+      border: 1px solid #000;
+      width: 30%;
+      min-height: 10vh;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9vw;
+      overflow: hidden;
+      //font-family: $headingFont;
+      &.x {
+         background: rgba(174, 198, 207, 0.7);
+         pointer-events: none;
+         &:hover,
+         &:focus {
+            background: rgba(174, 198, 207, 0.7);
+         }
+      }
+      &.o {
+         background: rgba(255, 179, 71, 0.7);
+         pointer-events: none;
+         &:hover,
+         &:focus {
+            background: rgba(255, 179, 71, 0.7);
+         }
+      }
+      &:hover,
+      &:focus {
+         background: rgba(255, 255, 0, 0.3);
+      }
+      &:nth-of-type(-n+3) {
+         border-top: none;
+      }
+      &:nth-of-type(3n+1) {
+         border-left: none;
+      }
+      &:nth-of-type(3n+3) {
+         border-right: none;
+      }
+      &:nth-last-child(-n+3) {
+         border-bottom: none;
+      }
+   }
+}
+
+.gameOver {
+   position: absolute;
+   left: 0;
+   top: 0;
+   height: 100%;
+   width: 100%;
+   text-align: center;
+   line-height: 1.5em;   
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   pointer-events: none;   
+   animation: pulse 1s infinite linear;
+   
+   .message {
+      color: #fff;
+      text-shadow: none;
+      display: inline-block;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.9);
+   }
+}
+
+.voiceHelp {
+   position: absolute;
+   top: 0;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: rgba(0, 0, 0, 1);
+   color: #000;
+   z-index: 1000;
+   pointer-events: none;
+   .message {
+      font-family: $defaultFont;
+      pointer-events: initial;
+      padding: 20px;
+      background: #fff;
+      max-width: 85%;
+      position: relative;
+   }
+   h3 {
+      font-family: $defaultFont;
+      margin-bottom: 10px;
+   }
+   p {
+      line-height: 1.4;
+      margin-bottom: 5px;
+   }
+   button {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      margin-left: -28px;      
+      border: 3px solid #fff;
+      background: $burnedWood;
+      font-size: 2em;
+      width: 53px;
+      height: 53px;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      i{
+         vertical-align: text-bottom;
+         display: inline;
+         line-height: 27px;
+         overflow: hidden;
+         
+      }
+   }
+}
+.commands{
+   padding: 5px;
+   font-size: 0.8em;
+   line-height: 1.2;
+   position: relative;
+   z-index: 100;
+   background: #fff;
+}
+.hide {
+   display: none;
+}
+
+.suspend {
+   pointer-events: none;
+}
+
+@media (min-width: 430px) {
+   .paper {
+      padding: 2em 1em 2em 2.5em;
+      max-width: 300px;
+   }
+}
+
+@media (min-width: 700px) {
+   body {
+      perspective: 250px;
+   }
+   h1 {
+      font-size: 5em;
+   }
+   .board {
+      li {
+         font-size: 4em;
+      }
+   }
+}
+@media (orientation : landscape) and (max-height: 600px) {
+   body{  
+      height: 100vh;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction:column;
+      &:after{
+         font-size: 1.5em;
+         content:'Flip device into Portrait Mode please';
+      }
+      &:before{         
+         content: "\f10b";
+         font: normal normal normal 14px/1 FontAwesome;         
+         text-rendering: auto;
+         font-size: 10em;
+         -webkit-font-smoothing: antialiased;
+         color: #888;
+      }
+      *{
+         display: none;
+      }
+   }
+}
+
+/* Animations */
+@keyframes pulse {
+   0% {transform: scale(1);}
+   50% {transform: scale(1.25);}
+   100% {transform: scale(1);}
+}
+
+@keyframes spin{
+   0% {transform: rotate(0deg);}   
+   100% {transform: rotate(359deg);}
+}
+
+@keyframes walkup {
+   0% {transform: rotateX(45deg) scale(0.33);}
+   100% {transform: rotateX(0deg) scale(1);}
+}
